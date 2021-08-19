@@ -1,0 +1,36 @@
+.share-btn {
+    position: relative;
+    z-index: 30;
+    /*pointer-events: auto;*/
+    width: 30px;
+    height: 30px;
+    border: transparent;
+    display: inline-block;
+    margin-left: 8px;
+}
+.outer {
+    position: absolute;
+    display: flex;
+    /*pointer-events: auto;*/
+    z-index: 35;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+.logo {
+    position: relative;
+    z-index: 35;
+    /*pointer-events: auto;*/
+    width: 100%;
+    height: 100%;
+}
+
+.share-btn:hover {
+    cursor: pointer;
+}
+
+.logo:hover {
+    height: 105%;
+    width: 105%;
+}

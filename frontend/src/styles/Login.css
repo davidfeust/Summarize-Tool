@@ -1,0 +1,154 @@
+.popup {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: all;
+
+    width: 707px;
+    height: 571px;
+
+    top: 50%;
+    left: 50%;
+    margin-top: -285.5px; /* Negative half of height. */
+    margin-left: -353.5px; /* Negative half of width. */
+
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.55);
+    /*opacity: 100%;*/
+}
+
+.popup-inner {
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 640px;
+    background-color: #a7b4a4;
+}
+
+.login-btn {
+    /*pointer-events: auto;*/
+    cursor: pointer;
+    position: absolute;
+    width: 216px;
+    height: 67px;
+
+    background: #000358;
+    border-radius: 15px;
+
+    font-family: Montserrat Alternates, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 12px;
+    /* or 67% */
+
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.199792px;
+
+    color: #FFFFFF;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 400px;
+}
+
+.title-login {
+    position: absolute;
+    width: 494px;
+    height: 89px;
+
+    font-family: Montserrat Alternates, serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 40px;
+    /* or 100% */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.133333px;
+
+    color: #458CFE;
+    
+    margin-top: -370px;
+}
+
+.in {
+    position: absolute;
+    /*pointer-events: auto;*/
+
+    background-color: transparent;
+    color: #454545;
+    outline-style: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #A8A8A8 1px;
+    padding: 3px 10px;
+    width: 300px;
+
+    margin-top: 30px;
+}
+
+.login-form {
+    width: 70%;
+    height: 50%;
+}
+
+.label-input {
+    position: absolute;
+    width: 251px;
+    height: 27px;
+
+    font-family: Montserrat Alternates, serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+
+    color: #A8A8A8;
+
+    margin-top: 1px;
+}
+
+.note {
+    position: absolute;
+    width: 604px;
+    height: 57px;
+
+    font-family: Montserrat Alternates, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 20px;
+    /* or 167% */
+
+    text-align: center;
+    letter-spacing: 0.2px;
+
+    color: #454545;
+
+    top: 250px;
+    margin-top: 250px;
+    display: flex;
+}
+
+
+.hide-bg {
+    background-color: #a4a9b0;
+    opacity: 40%;
+
+    position: fixed;
+    z-index: 800;
+    pointer-events: all;
+
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+}

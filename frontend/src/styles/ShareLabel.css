@@ -1,0 +1,29 @@
+.share-logo {
+    position: absolute;
+    /*pointer-events: none;*/
+    z-index: 17;
+    margin-top: 3px;
+    display:inline-block;
+}
+
+.share-logo-img {
+    z-index: 17;
+    /*pointer-events: none;*/
+    width: 19.57px;
+    min-width: 19.57px;
+    height: 21.43px;
+}
+
+.label-share-article {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 25px;
+
+    font-family: Montserrat Alternates, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 12px;
+    /* or 75% */
+    color: #000358;
+}

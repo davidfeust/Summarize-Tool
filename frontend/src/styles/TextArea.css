@@ -1,0 +1,28 @@
+.sum-textarea {
+    z-index: 11;
+    width: 1028px;
+    min-width: 1028px;
+    /*height: 532px;*/
+    min-height: 532px;
+    background-color: rgba(246, 249, 255, 1);
+    border-radius: 33.3333px 33.3333px 33.3333px 0;
+    border-color: transparent;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+
+    font-style: normal;
+    font-family: Montserrat Alternates, serif;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 30px;
+    box-sizing: border-box;
+    pointer-events: none;
+    user-select: none;
+    flex-direction: column;
+}
+
+.title-res {
+    text-decoration: underline;
+    font-size: 110%;
+}

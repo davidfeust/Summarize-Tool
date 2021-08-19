@@ -1,0 +1,41 @@
+.Group-2200 {
+    z-index: 39;
+    /*pointer-events: auto;*/
+    width: 216px;
+    min-width: 216px;
+    height: 67px;
+    margin-top: 25px;
+    min-height: 67px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-sum {
+    /*pointer-events: auto;*/
+    width: 100%;
+    height: 100%;
+    background: #000358;
+    border-radius: 15px;
+    font-family: Montserrat Alternates, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18.6472px;
+    line-height: 12px;
+
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.199792px;
+
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.btn-sum:hover {
+    background: #1e2168;
+}
+
+.btn-sum:disabled {
+    background: #484985;
+    cursor: auto;
+}

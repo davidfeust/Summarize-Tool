@@ -1,0 +1,43 @@
+.download-btn {
+    position: relative;
+    pointer-events: auto;
+    min-width: 130px;
+    min-height: 33px;
+    float: right;
+    margin-left: 15px;
+    background: #000358;
+    border-radius: 10px;
+    z-index: 14;
+    width: 130px;
+    height: 33px;
+    margin-top: 0;
+    cursor: pointer;
+}
+
+.download-label {
+    position: relative;
+    text-align: center;
+    flex-direction: column;
+
+    font-family: Montserrat Alternates, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 12px;
+    /* or 75% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.2px;
+
+    color: #FFFFFF;
+}
+
+.download-btn:hover {
+    background: #1e2168;
+}
+
+.download-btn:disabled {
+    background: #3f416d;
+    cursor: auto;
+}

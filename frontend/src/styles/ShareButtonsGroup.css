@@ -1,0 +1,12 @@
+.Group-share {
+    position: relative;
+    z-index: 16;
+    pointer-events: auto;
+    float:right;
+    margin-top: 25px;
+}
+
+.Group-btns {
+    margin-left: 135px;
+    display: inline-block;
+}
