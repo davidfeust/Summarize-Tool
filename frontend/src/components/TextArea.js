@@ -39,7 +39,6 @@ function TextArea(props) {
 
     return (
         <div className="sum-textarea">
-            {props.setSummary.split(' ').length}
             <div className="title-res">
                 {props.setTitle !== '' ? "Summary: " : ""}
                 {props.setTitle}

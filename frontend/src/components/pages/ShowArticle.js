@@ -31,7 +31,7 @@ class ShowArticle extends Component {
         return (
             <div>
                 <div className="head-title">
-                    <img src={'/images/HiLo-logo.png'} alt="HiLo logo"/>
+                    <img src={'/images/HiLo--logo.png'} alt="HiLo logo"/>
                     <h1 className="title">
                         {this.state.title}
                     </h1>

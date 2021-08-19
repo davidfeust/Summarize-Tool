@@ -26,11 +26,11 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'html', 'doc', 'docx'}
 # app = Flask(__name__, static_folder='frontend/build', static_url_path='')
 app = Flask(__name__, static_folder='frontend/build', static_url_path='')
 # app = Flask(__name__, static_folder="build/static", template_folder="build")
-cors = CORS(app)
+# cors = CORS(app)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['CORS_HEADERS'] = 'Content-Type'
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+# app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 flask_cors.CORS(app, expose_headers='Authorization')
 
@@ -64,40 +64,25 @@ def get_max(max_num, max_per, num_words):
             return -1
 
 
-# @app.route("/<path:path>")
 @app.route("/", defaults={"path": ""})
 @app.route("/<string:path>")
 def index(path):
+    print('index(path)', path)
     return send_from_directory(app.static_folder, "index.html")
 
 
 @app.route("/<string:path>/<job_id>")
 def catch_all(path, job_id):
-    return send_from_directory(app.static_folder, "index.html")
+    print('catch_all(path, job_id)', path, job_id)
+    if path == 'images':
+        return send_from_directory('frontend/build/images', job_id, as_attachment=True)
+    else:
+        return send_from_directory(app.static_folder, "index.html")
 
 
-# @app.route("/", defaults={"path": ""})
-# @app.route("/<path:path>")
-# def index(path):
-#     print('#$#$#$#')
-#     return send_from_directory(app.static_folder, "index.html")
-
-
-# @app.route('/')
-# def serve():
-#     print('***/')
-#     return send_from_directory(app.static_folder, 'index.html')
-#
-#
-# @app.route('/test')
-# def test():
-#     print('***/test')
-#     return send_from_directory(app.static_folder, 'index.html')
-
-
-# @app.errorhandler(404)
-# def resource_not_found(e):
-#     return jsonify(error=str(e)), 404
+@app.errorhandler(404)
+def resource_not_found(e):
+    return jsonify(error=str(e)), 404
 
 
 @app.route('/summarize', methods=['POST'])
@@ -139,10 +124,7 @@ def file_upload():
     log_db.add_job(job_id, 'summarize', st, et, filename, max_num, max_per, category, summary_name)
 
     title = title.replace('_', ' ')
-    # try:
     os.remove(temp_path)
-    # except:
-    #     pass
 
     logger.info('done summarize')
     return jsonify({'summary': summary, 'link': SHARE_LINK + str(job_id), 'title': title})
@@ -266,4 +248,3 @@ if __name__ == "__main__":
     app.secret_key = os.urandom(24)
     # app.run(debug=False, host="0.0.0.0", use_reloader=False)
     app.run(debug=True, host="0.0.0.0", use_reloader=False)
-    # app.run(debug=False, host="0.0.0.0", use_reloader=True)

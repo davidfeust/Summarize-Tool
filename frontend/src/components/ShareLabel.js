@@ -7,7 +7,7 @@ class ShareLabel extends Component {
             <div>
                 <div className="share-logo">
                     <img
-                        src={'/images/share-logo.png'}
+                        src={'/images/share--logo.png'}
                         alt="share logo"
                         className="share-logo-img"
                         id="share-logo"

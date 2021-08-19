@@ -27,16 +27,16 @@ class ShareButtonsGroup extends Component {
 
                     <LinkedinShareButton disabled={!this.props.isDone} url={url_link} subject={title}
                                          body={share_text}>
-                        <ShareButton logo={'/images/logo-linkedin.png'} id={'linkedin'}/>
+                        <ShareButton logo={'/images/logo--linkedin.png'} id={'linkedin'}/>
                     </LinkedinShareButton>
 
                     <TwitterShareButton disabled={!this.props.isDone} url={url_link} title={share_text}>
-                        <ShareButton logo={'/images/logo-twitter.png'} id={'twitter'}/>
+                        <ShareButton logo={'/images/logo--twitter.png'} id={'twitter'}/>
                     </TwitterShareButton>
 
                     <EmailShareButton disabled={!this.props.isDone} url={url_link} title={title}
                                       summary={share_text}>
-                        <ShareButton logo={'/images/logo-mail.png'} id={'mail'}/>
+                        <ShareButton logo={'/images/logo--mail.png'} id={'mail'}/>
                     </EmailShareButton>
 
                 </div>
