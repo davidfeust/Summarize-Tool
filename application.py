@@ -24,15 +24,15 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'html', 'doc', 'docx'}
 
 # app
 # app = Flask(__name__, static_folder='frontend/build', static_url_path='')
-app = Flask(__name__, static_folder='frontend/build', static_url_path='')
-# app = Flask(__name__, static_folder="build/static", template_folder="build")
-# cors = CORS(app)
+application = Flask(__name__, static_folder='frontend/build', static_url_path='')
+# application = Flask(__name__, static_folder="build/static", template_folder="build")
+# cors = CORS(application)
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['CORS_HEADERS'] = 'Content-Type'
-# app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+application.config['CORS_HEADERS'] = 'Content-Type'
+# application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-flask_cors.CORS(app, expose_headers='Authorization')
+flask_cors.CORS(application, expose_headers='Authorization')
 
 # model = T5()
 model = Bart()
@@ -64,28 +64,28 @@ def get_max(max_num, max_per, num_words):
             return -1
 
 
-@app.route("/", defaults={"path": ""})
-@app.route("/<string:path>")
+@application.route("/", defaults={"path": ""})
+@application.route("/<string:path>")
 def index(path):
     print('index(path)', path)
-    return send_from_directory(app.static_folder, "index.html")
+    return send_from_directory(application.static_folder, "index.html")
 
 
-@app.route("/<string:path>/<job_id>")
+@application.route("/<string:path>/<job_id>")
 def catch_all(path, job_id):
     print('catch_all(path, job_id)', path, job_id)
     if path == 'images':
         return send_from_directory('frontend/build/images', job_id, as_attachment=True)
     else:
-        return send_from_directory(app.static_folder, "index.html")
+        return send_from_directory(application.static_folder, "index.html")
 
 
-@app.errorhandler(404)
+@application.errorhandler(404)
 def resource_not_found(e):
     return jsonify(error=str(e)), 404
 
 
-@app.route('/summarize', methods=['POST'])
+@application.route('/summarize', methods=['POST'])
 @cross_origin()
 def file_upload():
     st = datetime.now().strftime(TIME_PATTERN)
@@ -131,7 +131,7 @@ def file_upload():
 
 
 @cross_origin()
-@app.route('/get_summary', methods=['POST', 'GET'])
+@application.route('/get_summary', methods=['POST', 'GET'])
 def summary_share():
     logger.info('start summary')
     job_id = request.args.get('id')
@@ -159,7 +159,7 @@ def summary_share():
 
 
 @cross_origin()
-@app.route('/original', methods=['POST'])
+@application.route('/original', methods=['POST'])
 def save_original():
     st = datetime.now().strftime(TIME_PATTERN)
     logger.info('start original')
@@ -187,7 +187,7 @@ def save_original():
 
 
 @cross_origin()
-@app.route('/show_article', methods=['POST', 'GET'])
+@application.route('/show_article', methods=['POST', 'GET'])
 def show_original():
     st = datetime.now().strftime(TIME_PATTERN)
     logger.info('start show_article')
@@ -214,7 +214,7 @@ def show_original():
 
 
 @cross_origin()
-@app.route('/login', methods=['POST', 'GET'])
+@application.route('/login', methods=['POST', 'GET'])
 def login():
     logger.info('start login')
     first_name = request.form['first_name']
@@ -231,7 +231,7 @@ def login():
     return jsonify({'OK': True})
 
 
-@app.after_request
+@application.after_request
 def add_header(r):
     """
     Add headers to both force latest IE rendering engine or Chrome Frame,
@@ -245,6 +245,6 @@ def add_header(r):
 
 
 if __name__ == "__main__":
-    app.secret_key = os.urandom(24)
-    # app.run(debug=False, host="0.0.0.0", use_reloader=False)
-    app.run(debug=True, host="0.0.0.0", use_reloader=False)
+    application.secret_key = os.urandom(24)
+    # application.run(debug=False, host="0.0.0.0", use_reloader=False)
+    application.run(debug=True, host="0.0.0.0", use_reloader=False)
