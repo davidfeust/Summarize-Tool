@@ -6,6 +6,7 @@ import {trackPromise} from "react-promise-tracker";
 import {LoadingIndicator} from "./LoadingIndicator";
 import Category from "./Category";
 
+const base_route = 'http://hilosummarizetool-env.eba-akvdx8mn.eu-central-1.elasticbeanstalk.com'
 
 class Form extends Component {
 
@@ -104,11 +105,11 @@ class Form extends Component {
         formData.append('category', this.state.category);
 
         this.handleName(this.state.selectedFile.name);
-
+        console.log('fetch to', `${base_route}/summarize`)
         // Send formData object
         trackPromise(
-            fetch('http://localhost:5000/summarize', {
-
+            // fetch('http://localhost:5000/summarize', {
+            fetch(`${base_route}/summarize`, {
                 method: 'POST',
                 body: formData,
                 mode: 'cors'
