@@ -85,6 +85,12 @@ def resource_not_found(e):
     return jsonify(error=str(e)), 404
 
 
+@application.route('/test', methods=['POST', 'GET'])
+@cross_origin()
+def test():
+    return 'TEST!!'
+
+
 @application.route('/summarize', methods=['POST'])
 @cross_origin()
 def file_upload():
