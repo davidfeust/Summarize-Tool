@@ -1,9 +1,66 @@
+import os
 import flask_cors
-from flask import Flask
+from flask import Flask, request, session, jsonify, abort, send_from_directory, render_template, make_response
+from werkzeug.utils import secure_filename
+from flask_cors import cross_origin, CORS
+import logging
+from datetime import datetime
 
-# EB looks for an 'application' callable by default.
+# import server.Summarizer as sum
+# from server.T5 import T5
+# from server.Bart import Bart
+# from server.LoggerSQL import LoggerSQL
+
+# logger
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('T5 SERVER ')
+
+# path
+CURR_PATH = os.path.dirname(os.path.realpath(__file__))
+UPLOAD_FOLDER = os.path.join(CURR_PATH, 'server/articles')
+SUMMARIES_FOLDER = os.path.join(CURR_PATH, 'server/summaries')
+TIME_PATTERN = "%d/%m/%Y %H:%M:%S:%f"
+
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'html', 'doc', 'docx'}
+
+# app
 application = Flask(__name__)
+# application = Flask(__name__, static_folder='frontend/build', static_url_path='')
+
+application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+application.config['CORS_HEADERS'] = 'Content-Type'
+# application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 flask_cors.CORS(application, expose_headers='Authorization')
+
+# # model = T5()
+# model = Bart()
+# log_db = LoggerSQL()
+# ids = 0
+
+# TODO: needs to be change
+# SHARE_LINK = 'https://www.hilostudent.com/summary/'
+SHARE_LINK = ''
+
+
+def get_id():
+    global ids
+    res = datetime.now().strftime("%d%m%Y%H%M%S")
+    res += str(ids)
+    ids += 1
+    return int(res)
+
+
+def get_max(max_num, max_per, num_words):
+    try:
+        max_per = float(max_per)
+        return int(num_words * max_per)
+    except ValueError:
+        try:
+            max_num = int(max_num)
+            return max_num
+        except ValueError:
+            return -1
 
 
 @application.route('/test')
@@ -16,77 +73,6 @@ def home():
     return '<h1>Hello Home!</h1>\n'
 
 
-# run the app.
-if __name__ == "__main__":
-    # Setting debug to True enables debug output. This line should be
-    # removed before deploying a production app.
-    application.debug = True
-    application.run()
-
-# import os
-# import flask_cors
-# from flask import Flask, request, session, jsonify, abort, send_from_directory, render_template, make_response
-# from werkzeug.utils import secure_filename
-# from flask_cors import cross_origin, CORS
-# import logging
-# import server.Summarizer as sum
-# from server.T5 import T5
-# from server.Bart import Bart
-# from server.LoggerSQL import LoggerSQL
-# from datetime import datetime
-#
-# # logger
-# logging.basicConfig(level=logging.INFO)
-# logger = logging.getLogger('T5 SERVER ')
-#
-# # path
-# CURR_PATH = os.path.dirname(os.path.realpath(__file__))
-# UPLOAD_FOLDER = os.path.join(CURR_PATH, 'server/articles')
-# SUMMARIES_FOLDER = os.path.join(CURR_PATH, 'server/summaries')
-# TIME_PATTERN = "%d/%m/%Y %H:%M:%S:%f"
-#
-# ALLOWED_EXTENSIONS = {'txt', 'pdf', 'html', 'doc', 'docx'}
-#
-# # app
-# application = Flask(__name__)
-# # application = Flask(__name__, static_folder='frontend/build', static_url_path='')
-#
-# application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-# application.config['CORS_HEADERS'] = 'Content-Type'
-# # application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-#
-# flask_cors.CORS(application, expose_headers='Authorization')
-#
-# # model = T5()
-# model = Bart()
-# log_db = LoggerSQL()
-# ids = 0
-#
-# # TODO: needs to be change
-# # SHARE_LINK = 'https://www.hilostudent.com/summary/'
-# SHARE_LINK = ''
-#
-#
-# def get_id():
-#     global ids
-#     res = datetime.now().strftime("%d%m%Y%H%M%S")
-#     res += str(ids)
-#     ids += 1
-#     return int(res)
-#
-#
-# def get_max(max_num, max_per, num_words):
-#     try:
-#         max_per = float(max_per)
-#         return int(num_words * max_per)
-#     except ValueError:
-#         try:
-#             max_num = int(max_num)
-#             return max_num
-#         except ValueError:
-#             return -1
-#
-#
 # # @application.route("/", defaults={"path": ""})
 # # @application.route("/<string:path>")
 # # def index(path):
@@ -277,3 +263,10 @@ if __name__ == "__main__":
 #     application.secret_key = os.urandom(24)
 #     # application.run(debug=False, host="0.0.0.0", use_reloader=False)
 #     application.run(debug=True, host="0.0.0.0", use_reloader=False)
+
+# run the app.
+if __name__ == "__main__":
+    # Setting debug to True enables debug output. This line should be
+    # removed before deploying a production app.
+    application.debug = True
+    application.run()
