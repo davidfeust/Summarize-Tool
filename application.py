@@ -6,10 +6,10 @@ from flask_cors import cross_origin, CORS
 import logging
 from datetime import datetime
 
-import server.Summarizer as sum
+# import server.Summarizer as sum
 # from server.T5 import T5
-from server.Bart import Bart
-from server.LoggerSQL import LoggerSQL
+# from server.Bart import Bart
+# from server.LoggerSQL import LoggerSQL
 
 # logger
 logging.basicConfig(level=logging.INFO)
@@ -34,8 +34,8 @@ application.config['CORS_HEADERS'] = 'Content-Type'
 flask_cors.CORS(application, expose_headers='Authorization')
 
 # # model = T5()
-model = Bart()
-log_db = LoggerSQL()
+# model = Bart()
+# log_db = LoggerSQL()
 ids = 0
 
 # TODO: needs to be change
@@ -121,7 +121,8 @@ def file_upload():
     num_words = len(content.split())
     max_l = get_max(max_num, max_per, num_words)
 
-    summary = model.summarizer(content, max_l)
+    # summary = model.summarizer(content, max_l)
+    summary = "model.summarizer(content, max_l)"
 
     summary_name = 'Summary_' + title + '##' + str(job_id) + '.txt'
     path = os.path.join(SUMMARIES_FOLDER, summary_name)
@@ -131,7 +132,7 @@ def file_upload():
 
     et = datetime.now().strftime(TIME_PATTERN)
 
-    log_db.add_job(job_id, 'summarize', st, et, filename, max_num, max_per, category, summary_name)
+    # log_db.add_job(job_id, 'summarize', st, et, filename, max_num, max_per, category, summary_name)
 
     title = title.replace('_', ' ')
     os.remove(temp_path)
@@ -149,7 +150,8 @@ def summary_share():
     if job_id == 'undefined':
         return jsonify({'OK': False})
 
-    filename = log_db.get_summary_file(job_id)
+    # filename = log_db.get_summary_file(job_id)
+    filename = 'log_db.get_summary_file(job_id)'
     print('filename', filename)
     if filename is None:
         # page not found error
@@ -190,7 +192,7 @@ def save_original():
         f.write(str(content))
 
     et = datetime.now().strftime(TIME_PATTERN)
-    log_db.add_job(job_id, 'original', st, et, filename)
+    # log_db.add_job(job_id, 'original', st, et, filename)
 
     logger.info('done original')
     return jsonify({'job_id': job_id})
@@ -203,7 +205,8 @@ def show_original():
     logger.info('start show_article')
 
     job_id = request.args.get('id')
-    file_name = log_db.get_content_file(job_id)
+    # file_name = log_db.get_content_file(job_id)
+    file_name = 'log_db.get_content_file(job_id)'
     if file_name is None:
         # page not found error
         abort(404, description="Resource not found")
@@ -233,9 +236,10 @@ def login():
 
     if 'category' in request.form:
         category = request.form['category']
-        log_db.add_user_and_statistics(first_name, last_name, email, datetime.now().strftime(TIME_PATTERN), category)
+        # log_db.add_user_and_statistics(first_name, last_name, email, datetime.now().strftime(TIME_PATTERN), category)
     else:
-        log_db.add_user(first_name, last_name, email, datetime.now().strftime(TIME_PATTERN))
+        pass
+        # log_db.add_user(first_name, last_name, email, datetime.now().strftime(TIME_PATTERN))
 
     logger.info('done login')
     return jsonify({'OK': True})
