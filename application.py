@@ -1,12 +1,19 @@
+import flask_cors
 from flask import Flask
 
 # EB looks for an 'application' callable by default.
 application = Flask(__name__)
+flask_cors.CORS(application, expose_headers='Authorization')
 
 
 @application.route('/test')
 def test():
     return '<p>Hello World!</p>\n'
+
+
+@application.route('/')
+def home():
+    return '<h1>Hello Home!</h1>\n'
 
 
 # run the app.
