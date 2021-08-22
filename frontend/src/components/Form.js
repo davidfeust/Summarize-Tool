@@ -86,7 +86,7 @@ class Form extends Component {
     // On file upload (click the summarize button)
     onFileUpload = (ev) => {
         ev.preventDefault();
-        console.log('##', process.env.API)
+        console.log('##', process.env)
         this.setState({working: true});
 
         // Create an object of formData
