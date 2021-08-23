@@ -6,9 +6,9 @@ from flask_cors import cross_origin, CORS
 import logging
 from datetime import datetime
 
-# import server.Summarizer as summ
+import server.Summarizer as summ
 # from server.T5 import T5
-# from server.Bart import Bart
+from server.Bart import Bart
 from server.LoggerSQL import LoggerSQL
 
 # logger
@@ -34,7 +34,7 @@ application.config['CORS_HEADERS'] = 'Content-Type'
 flask_cors.CORS(application, expose_headers='Authorization')
 
 # # model = T5()
-# model = Bart()
+model = Bart()
 log_db = LoggerSQL()
 ids = 0
 
@@ -68,28 +68,6 @@ def home():
     return '<h1>Hello!</h1>\n'
 
 
-# # @application.route("/", defaults={"path": ""})
-# # @application.route("/<string:path>")
-# # def index(path):
-# #     print('index(path)', path)
-# #     return send_from_directory(application.static_folder, "index.html")
-# #
-# #
-# # @application.route("/<string:path>/<job_id>")
-# # def catch_all(path, job_id):
-# #     print('catch_all(path, job_id)', path, job_id)
-# #     if path == 'images':
-# #         return send_from_directory('frontend/build/images', job_id, as_attachment=True)
-# #     else:
-# #         return send_from_directory(application.static_folder, "index.html")
-
-
-# @application.errorhandler(404)
-# def resource_not_found(e):
-#     return jsonify(error=str(e)), 404
-#
-#
-
 @application.route('/summarize', methods=['POST'])
 @cross_origin()
 def file_upload():
@@ -112,13 +90,11 @@ def file_upload():
     file.save(temp_path)
     session['uploadFilePath'] = temp_path
 
-    # content = summ.read_file(temp_path)
-    content = 'summ.read_file(temp_path)'
+    content = summ.read_file(temp_path)
     num_words = len(content.split())
     max_l = get_max(max_num, max_per, num_words)
 
-    # summary = model.summarizer(content, max_l)
-    summary = "model.summarizer(content, max_l)"
+    summary = model.summarizer(content, max_l)
 
     summary_name = 'Summary_' + title + '##' + str(job_id) + '.txt'
     path = os.path.join(SUMMARIES_FOLDER, summary_name)
@@ -147,7 +123,6 @@ def summary_share():
         return jsonify({'OK': False})
 
     filename = log_db.get_summary_file(job_id)
-    # filename = 'log_db.get_summary_file(job_id)'
     print('filename', filename)
     if filename is None:
         # page not found error
@@ -178,8 +153,7 @@ def save_original():
     file.save(temp_path)
     session['uploadFilePath'] = temp_path
 
-    # content = summ.read_file(temp_path)
-    content = 'summ.read_file(temp_path)'
+    content = summ.read_file(temp_path)
     os.remove(temp_path)
     job_id = get_id()
     filename = filename + '##' + str(job_id)
@@ -203,7 +177,6 @@ def show_original():
 
     job_id = request.args.get('id')
     file_name = log_db.get_content_file(job_id)
-    # file_name = 'log_db.get_content_file(job_id)'
     if file_name is None:
         # page not found error
         abort(404, description="Resource not found")
@@ -254,14 +227,9 @@ def add_header(r):
     return r
 
 
-#
-# if __name__ == "__main__":
-#     application.secret_key = os.urandom(24)
-#     # application.run(debug=False, host="0.0.0.0", use_reloader=False)
-#     application.run(debug=True, host="0.0.0.0", use_reloader=False)
-
 # run the app.
 if __name__ == "__main__":
+    application.secret_key = os.urandom(24)
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
     application.debug = True

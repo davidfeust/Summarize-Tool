@@ -7,6 +7,7 @@ import {LoadingIndicator} from "./LoadingIndicator";
 import Category from "./Category";
 
 const base_route = 'https://hilosummarizetool-env.eba-akvdx8mn.eu-central-1.elasticbeanstalk.com'
+const local_route = 'http://localhost:5000'
 
 class Form extends Component {
 
@@ -87,7 +88,6 @@ class Form extends Component {
     // On file upload (click the summarize button)
     onFileUpload = (ev) => {
         ev.preventDefault();
-        console.log('##', process.env)
         this.setState({working: true});
 
         // Create an object of formData
@@ -105,11 +105,17 @@ class Form extends Component {
         formData.append('category', this.state.category);
 
         this.handleName(this.state.selectedFile.name);
-        console.log('fetch to', `${base_route}/summarize`)
+        var route;
+        if (process.env.NODE_ENV === 'development') {
+            route = local_route;
+        } else {
+            route = base_route;
+        }
+        console.log('fetch to', route)
+
         // Send formData object
         trackPromise(
-            // fetch('http://localhost:5000/summarize', {
-            fetch(`${base_route}/summarize`, {
+            fetch(`${route}/summarize`, {
                 method: 'POST',
                 body: formData,
                 mode: 'cors'
