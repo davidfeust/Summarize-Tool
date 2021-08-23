@@ -9,7 +9,7 @@ from datetime import datetime
 # import server.Summarizer as sum
 # from server.T5 import T5
 # from server.Bart import Bart
-# from server.LoggerSQL import LoggerSQL
+from server.LoggerSQL import LoggerSQL
 
 # logger
 logging.basicConfig(level=logging.INFO)
@@ -35,7 +35,7 @@ flask_cors.CORS(application, expose_headers='Authorization')
 
 # # model = T5()
 # model = Bart()
-# log_db = LoggerSQL()
+log_db = LoggerSQL()
 ids = 0
 
 # TODO: needs to be change
@@ -256,6 +256,7 @@ def add_header(r):
     r.headers["Expires"] = "0"
     r.headers['Cache-Control'] = 'public, max-age=0'
     return r
+
 
 #
 # if __name__ == "__main__":
