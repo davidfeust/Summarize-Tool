@@ -6,7 +6,7 @@ from flask_cors import cross_origin, CORS
 import logging
 from datetime import datetime
 
-import server.Summarizer as summ
+# import server.Summarizer as summ
 # from server.T5 import T5
 # from server.Bart import Bart
 from server.LoggerSQL import LoggerSQL
@@ -117,7 +117,8 @@ def file_upload():
     file.save(temp_path)
     session['uploadFilePath'] = temp_path
 
-    content = summ.read_file(temp_path)
+    # content = summ.read_file(temp_path)
+    content = 'summ.read_file(temp_path)'
     num_words = len(content.split())
     max_l = get_max(max_num, max_per, num_words)
 
@@ -182,7 +183,8 @@ def save_original():
     file.save(temp_path)
     session['uploadFilePath'] = temp_path
 
-    content = summ.read_file(temp_path)
+    # content = summ.read_file(temp_path)
+    content = 'summ.read_file(temp_path)'
     os.remove(temp_path)
     job_id = get_id()
     filename = filename + '##' + str(job_id)
