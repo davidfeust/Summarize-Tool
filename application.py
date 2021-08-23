@@ -230,4 +230,4 @@ def add_header(r):
 # run the app.
 if __name__ == "__main__":
     application.secret_key = os.urandom(24)
-    application.run(debug=False)
+    application.run(debug=False, host="0.0.0.0", use_reloader=False)
