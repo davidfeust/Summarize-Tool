@@ -6,7 +6,6 @@ class OriginalFile extends React.Component {
 
 
     onClick = () => {
-        // console.log('********', this.props.file)
         const formData = new FormData();
 
         // Update the formData object
@@ -16,7 +15,7 @@ class OriginalFile extends React.Component {
             this.props.file.name
         );
 
-        fetch('http://localhost:5000/original', {
+        fetch(`${process.env.REACT_APP_ROUTE}/original`, {
             method: 'POST',
             body: formData,
             mode: 'cors'
@@ -27,7 +26,6 @@ class OriginalFile extends React.Component {
             }
             response.json().then(body => {
                 let id = body['job_id'];
-                // console.log(text)
                 let win = window.open('/show/' + id, '_blank');
                 win.focus();
             })

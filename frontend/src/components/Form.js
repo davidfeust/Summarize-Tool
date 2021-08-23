@@ -6,8 +6,6 @@ import {trackPromise} from "react-promise-tracker";
 import {LoadingIndicator} from "./LoadingIndicator";
 import Category from "./Category";
 
-const base_route = 'https://hilosummarizetool-env.eba-akvdx8mn.eu-central-1.elasticbeanstalk.com'
-const local_route = 'http://localhost:5000'
 
 class Form extends Component {
 
@@ -22,49 +20,26 @@ class Form extends Component {
         };
 
         this.handleSummary.bind(this);
-        this.isValid = {
-            file: false,
-            max: false,
-            category: false
-        }
     }
 
 
     onFileChange = event => {
-        this.isValid.file = true;
         this.setState({selectedFile: event.target.files[0]});
         this.props.setStateOfParentFile(event.target.files[0])
     };
 
     onNumChange = event => {
         let val = event.target.value;
-        if (Number(val) < 0 || val === '') {
-            this.isValid.max = false;
-            this.setState({maxNum: ''})
-        } else {
-            this.isValid.max = true;
-            this.setState({maxNum: val})
-        }
+        this.setState({maxNum: val})
     };
 
     onPerChange = event => {
         let val = event.target.value;
-        if (isNaN(Number(val))) {
-            this.isValid.max = false;
-            this.setState({maxPer: null})
-        } else {
-            this.isValid.max = true;
-            this.setState({maxPer: val})
-        }
+        this.setState({maxPer: val})
     };
 
     onCategoryChange = event => {
-        if (event.target.value !== 'Article category') {
-            this.isValid.category = true;
-            this.setState({category: event.target.value})
-        } else {
-            this.isValid.category = false;
-        }
+        this.setState({category: event.target.value})
     };
 
     handleSummary = sum => {
@@ -106,16 +81,11 @@ class Form extends Component {
 
         this.handleName(this.state.selectedFile.name);
         var route;
-        if (process.env.NODE_ENV === 'development') {
-            route = local_route;
-        } else {
-            route = base_route;
-        }
         console.log('fetch to', route)
 
         // Send formData object
         trackPromise(
-            fetch(`${route}/summarize`, {
+            fetch(`${process.env.REACT_APP_ROUTE}/summarize`, {
                 method: 'POST',
                 body: formData,
                 mode: 'cors'

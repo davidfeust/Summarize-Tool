@@ -8,7 +8,7 @@ function TextArea(props) {
 
 
     const getSummary = () => {
-        fetch('http://localhost:5000/get_summary?id=' + id, {
+        fetch(`${process.env.REACT_APP_ROUTE}/get_summary?id=${id}`, {
             method: 'POST',
             mode: 'cors'
         }).then(response => {
