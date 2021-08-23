@@ -16,7 +16,8 @@ class Form extends Component {
             maxNum: '',
             maxPer: null,
             category: null,
-            working: false
+            working: false,
+            isPer: true
         };
 
         this.handleSummary.bind(this);
@@ -60,6 +61,10 @@ class Form extends Component {
         this.props.setStateOfParentTitle(title)
     };
 
+    handleIsPer = () => {
+        this.setState({isPer: !this.state.isPer})
+    };
+
     // On file upload (click the summarize button)
     onFileUpload = (ev) => {
         ev.preventDefault();
@@ -74,14 +79,19 @@ class Form extends Component {
             this.state.selectedFile,
             this.state.selectedFile.name
         );
+        if (this.state.isPer) {
+            formData.append('max_per', this.state.maxPer);
+            formData.append('max_num', null);
 
-        formData.append('max_num', this.state.maxNum);
-        formData.append('max_per', this.state.maxPer);
+        } else {
+            formData.append('max_num', this.state.maxNum);
+            formData.append('max_per', null);
+        }
         formData.append('category', this.state.category);
 
         this.handleName(this.state.selectedFile.name);
-        var route;
-        console.log('fetch to', route)
+
+        console.log('fetch to', process.env.REACT_APP_ROUTE)
 
         // Send formData object
         trackPromise(
@@ -109,7 +119,8 @@ class Form extends Component {
             <form onSubmit={this.onFileUpload} style={{pointerEvents: 'auto'}} id="form-in">
 
                 <ChooseFile onChange={this.onFileChange}/>
-                <NumOrPer value={this.state.maxNum} onChange={this.onNumChange} onChange1={this.onPerChange}/>
+                <NumOrPer value={this.state.maxNum} onChange={this.onNumChange} onChange1={this.onPerChange}
+                          isPer={this.handleIsPer}/>
                 <Category onChange={this.onCategoryChange}/>
                 <SummarizeButton disable={this.state.working}/>
                 <LoadingIndicator/>

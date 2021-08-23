@@ -52,7 +52,6 @@ class App extends Component {
     }
 
     render() {
-        console.log(process.env.REACT_APP_ROUTE)
         return (
             <div className="Page" id="Page">
                 <div className="Frame" id="Frame">

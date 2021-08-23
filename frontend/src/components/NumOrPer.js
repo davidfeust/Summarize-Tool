@@ -30,6 +30,7 @@ class NumOrPer extends Component {
             numMark: !this.state.numMark,
             perMark: !this.state.perMark
         })
+        this.props.isPer()
     }
 
     render() {

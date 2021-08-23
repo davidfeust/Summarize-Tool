@@ -116,9 +116,7 @@ def file_upload():
 @cross_origin()
 @application.route('/get_summary', methods=['POST', 'GET'])
 def summary_share():
-    logger.info('start summary')
     job_id = request.args.get('id')
-    print('jjjj', job_id)
     if job_id == 'undefined':
         return jsonify({'OK': False})
 
