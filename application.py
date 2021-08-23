@@ -230,7 +230,4 @@ def add_header(r):
 # run the app.
 if __name__ == "__main__":
     application.secret_key = os.urandom(24)
-    # Setting debug to True enables debug output. This line should be
-    # removed before deploying a production app.
-    application.debug = True
-    application.run()
+    application.run(debug=False)

@@ -10,9 +10,6 @@ class Bart:
 
     def summarizer(self, text, max_l):
         input_ids = self.tokenizer.encode("summarize: " + text, truncation=True, return_tensors='pt', max_length=1024)
-        # ,max_length=len(text.split()))
-
-        print('max=', max_l, 'min=', max_l - int(0.2 * max_l))
 
         summary_ids = self.model.generate(input_ids, max_length=max_l, min_length=(max_l - int(0.1 * max_l)),
                                           length_penalty=2.0, num_beams=4, early_stopping=True)
