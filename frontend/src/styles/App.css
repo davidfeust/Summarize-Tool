@@ -1,7 +1,7 @@
 .Page {
     margin: auto;
     width: 100%;
-    height: auto;
+    height: 100%;
     position: relative;
     display: flex;
     pointer-events: none;
@@ -21,6 +21,7 @@
 }
 
 .bottom-area {
+    max-width: 95%;
     width: min-content;
     margin: auto;
     user-select: none;
