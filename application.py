@@ -63,9 +63,13 @@ def get_max(max_num, max_per, num_words):
             return -1
 
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 @application.route('/')
 def home():
-    return '<h1>Hello!</h1>\n'
+    return '<h1>TEST</h1>\n'
 
 
 @application.route('/summarize', methods=['POST'])
@@ -81,6 +85,9 @@ def file_upload():
     max_per = request.form['max_per']
     category = request.form['category']
     job_id = get_id()
+
+    if not allowed_file(file.filename):
+        return 'Invalid file', 400
 
     filename = secure_filename(file.filename)
     title, _ = os.path.splitext(filename)
