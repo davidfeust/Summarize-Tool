@@ -7,3 +7,4 @@ html2text==2020.1.16
 beautifulsoup4==4.9.3
 docx==0.2.4
 pdfminer==20191125
+transformers==4.9.1
