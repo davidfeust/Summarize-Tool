@@ -8,7 +8,7 @@ from datetime import datetime
 
 # import server.Summarizer as summ
 # from server.T5 import T5
-from server.Bart import Bart
+# from server.Bart import Bart
 from server.LoggerSQL import LoggerSQL
 
 # logger
@@ -34,7 +34,7 @@ application.config['CORS_HEADERS'] = 'Content-Type'
 flask_cors.CORS(application, expose_headers='Authorization')
 
 # # model = T5()
-model = Bart()
+# model = Bart()
 log_db = LoggerSQL()
 ids = 0
 
@@ -63,14 +63,9 @@ def get_max(max_num, max_per, num_words):
             return -1
 
 
-@application.route('/test')
-def test():
-    return '<p>Hello World!</p>\n'
-
-
 @application.route('/')
 def home():
-    return '<h1>Hello Home!</h1>\n'
+    return '<h1>Hello!</h1>\n'
 
 
 # # @application.route("/", defaults={"path": ""})
@@ -122,8 +117,8 @@ def file_upload():
     num_words = len(content.split())
     max_l = get_max(max_num, max_per, num_words)
 
-    summary = model.summarizer(content, max_l)
-    # summary = "model.summarizer(content, max_l)"
+    # summary = model.summarizer(content, max_l)
+    summary = "model.summarizer(content, max_l)"
 
     summary_name = 'Summary_' + title + '##' + str(job_id) + '.txt'
     path = os.path.join(SUMMARIES_FOLDER, summary_name)
