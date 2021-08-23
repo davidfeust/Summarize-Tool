@@ -6,7 +6,7 @@ import {trackPromise} from "react-promise-tracker";
 import {LoadingIndicator} from "./LoadingIndicator";
 import Category from "./Category";
 
-const base_route = 'http://hilosummarizetool-env.eba-akvdx8mn.eu-central-1.elasticbeanstalk.com'
+const base_route = 'https://hilosummarizetool-env.eba-akvdx8mn.eu-central-1.elasticbeanstalk.com'
 
 class Form extends Component {
 
