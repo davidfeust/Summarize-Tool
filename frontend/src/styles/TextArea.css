@@ -2,7 +2,7 @@
     z-index: 11;
     width: 1028px;
     max-width: 95%;
-    height: 532px;
+    min-height: 532px;
     background-color: rgba(246, 249, 255, 1);
     border-radius: 33.3333px 33.3333px 33.3333px 0;
     border-color: transparent;
